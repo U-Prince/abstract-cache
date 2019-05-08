@@ -30,7 +30,7 @@ test('cache stores items', (t) => {
 test('cache returns deeply cloned items', (t) => {
   t.plan(4)
   const cache = memclientFactory()
-  const original = {foo: 'foo'}
+  const original = { foo: 'foo' }
   cache.set('foo', original, 1000, (err) => {
     t.error(err)
 
@@ -61,9 +61,9 @@ test('cache deletes items', (t) => {
 test('keys can be objects', (t) => {
   t.plan(6)
   const cache = memclientFactory()
-  cache.set({id: 'foo', segment: 'bar'}, 'foobar', 200, (err) => {
+  cache.set({ id: 'foo', segment: 'bar' }, 'foobar', 200, (err) => {
     if (err) t.threw(err)
-    cache.get({id: 'foo', segment: 'bar'}, (err, cached) => {
+    cache.get({ id: 'foo', segment: 'bar' }, (err, cached) => {
       if (err) t.threw(err)
       t.type(cached, Object)
       t.ok(cached.item)
@@ -77,10 +77,10 @@ test('keys can be objects', (t) => {
 
 test('supports configuring default segment', (t) => {
   t.plan(6)
-  const cache = memclientFactory({segment: 'fooseg'})
+  const cache = memclientFactory({ segment: 'fooseg' })
   cache.set('foo', 'foobar', 200, (err) => {
     if (err) t.threw(err)
-    cache.get({id: 'foo', segment: 'fooseg'}, (err, cached) => {
+    cache.get({ id: 'foo', segment: 'fooseg' }, (err, cached) => {
       if (err) t.threw(err)
       t.type(cached, Object)
       t.ok(cached.item)
@@ -94,7 +94,7 @@ test('supports configuring default segment', (t) => {
 
 test('supports configuring maximum items', (t) => {
   t.plan(5)
-  const cache = memclientFactory({maxItems: 1})
+  const cache = memclientFactory({ maxItems: 1 })
   const errHandler = (err) => {
     if (err) t.threw(err)
   }
@@ -121,7 +121,7 @@ test('supports configuring maximum items', (t) => {
 
 test('supports configuring maximum items and default segment', (t) => {
   t.plan(5)
-  const cache = memclientFactory({maxItems: 1, segment: 'fooseg'})
+  const cache = memclientFactory({ maxItems: 1, segment: 'fooseg' })
   const errHandler = (err) => {
     if (err) t.threw(err)
   }
@@ -135,7 +135,7 @@ test('supports configuring maximum items and default segment', (t) => {
         if (err) t.threw(err)
         t.is(cached, null)
       })
-      cache.get({id: 'bar', segment: 'fooseg'}, (err, cached) => {
+      cache.get({ id: 'bar', segment: 'fooseg' }, (err, cached) => {
         if (err) t.threw(err)
         t.ok(cached)
         t.type(cached, Object)

@@ -36,6 +36,18 @@ test('wraps get', (t) => {
     .catch(t.threw)
 })
 
+test('wraps keys', (t) => {
+  t.plan(2)
+  const client = wrapCBFactory(memclientFactory())
+  client.set('fo1', 'fo1', 4000)
+    .then(() => client.keys('fo*'))
+    .then((cached) => {
+      t.type(cached, Object)
+      t.is(cached[0].split(':')[1], 'fo1')
+    })
+    .catch(t.threw)
+})
+
 test('wraps delete', (t) => {
   t.plan(1)
   const client = wrapCBFactory(memclientFactory())

@@ -8,7 +8,7 @@ const factory = require('../')
 test('uses a previously established client', (t) => {
   t.plan(1)
   const client1 = factory.memclient()
-  const client2 = factory({client: client1})
+  const client2 = factory({ client: client1 })
   t.is(client2, client1)
 })
 
@@ -41,7 +41,7 @@ test('creates a client by specifying a driver', (t) => {
   t.plan(1)
   mockquire('abstract-cache-foo', factory.memclient)
   t.tearDown(() => mockquire.stopAll())
-  const client = factory({driver: {name: 'abstract-cache-foo'}})
+  const client = factory({ driver: { name: 'abstract-cache-foo' } })
   t.is(client.await, false)
 })
 
@@ -119,7 +119,7 @@ test('exposes start and stop via driver', (t) => {
     }
   })
   t.tearDown(() => mockquire.stopAll())
-  const client = factory({useAwait: true, driver: {name: 'abstract-cache-foo'}})
+  const client = factory({ useAwait: true, driver: { name: 'abstract-cache-foo' } })
   t.type(client.start, Function)
   t.type(client.stop, Function)
   client.start()

@@ -46,6 +46,23 @@ test('wraps get', (t) => {
   })
 })
 
+test('wraps keys', (t) => {
+  t.plan(3)
+  const client = inceptify()
+  client.set('fo1', 'fo1', 4000, (err) => {
+    if (err) t.threw(err)
+    client.set('fo2', 'fo2', 4000, (err) => {
+      if (err) t.threw(err)
+      client.keys('fo*', (err, cached) => {
+        if (err) t.threw(err)
+        t.type(cached, Object)
+        t.is(cached[0].split(':')[1], 'fo1')
+        t.is(cached[1].split(':')[1], 'fo2')
+      })
+    })
+  })
+})
+
 test('wraps delete', (t) => {
   t.plan(1)
   const client = inceptify()
